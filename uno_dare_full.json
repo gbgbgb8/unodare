@@ -1,0 +1,88 @@
+{
+  "uno_dare_deck": {
+    "Family": {
+      "color": "red",
+      "dares": [
+        "Talk like a sports announcer and narrate the game until your next turn.",
+        "Show your best dance moves until your next turn.",
+        "Talk like a space alien until your next turn.",
+        "Pretend everything makes you cry until your next turn.",
+        "No talking until your next turn.",
+        "Talk like Moon or Dad until your next turn.",
+        "Let someone mess up your hair.",
+        "Talk with your belly button until your next turn.",
+        "Make up a cheer about the player on your left.",
+        "End every sentence by saying 'hippity hop' until your next turn.",
+        "Baby talk until your next turn.",
+        "Remain perfectly frozen until your next turn.",
+        "Make a funny face until your next turn.",
+        "Sing instead of talk until your next turn.",
+        "Act like a cat until your next turn.",
+        "Answer everything by clapping your hands and saying 'I believe in fairies' until your next turn."
+      ]
+    },
+    "Daredevil": {
+      "color": "blue",
+      "dares": [
+        "Put a card between your knees and walk around the other players.",
+        "Balance one card on your head until your next turn.",
+        "Pin a card against the wall with your nose until your next turn.",
+        "Stand on 1 foot until your next turn.",
+        "Dance like a ballerina until your next turn.",
+        "Try to blow ONLY one card off the top of the Draw Pile.",
+        "Do 10 push ups in 10 seconds.",
+        "Spin around 5 times then walk 10 paces in a straight line.",
+        "Balance one card on each shoulder until your next turn.",
+        "Hold your cards in your feet until your next turn.",
+        "Draw exactly 10 cards from the Draw Pile in one grab.",
+        "Hop like a bunny until your next turn.",
+        "Put your foot above your head until your next turn.",
+        "Don't smile until your next turn.",
+        "Hold your cards in your arm pit until your next turn.",
+        "Correctly guess the color of the top card of the Draw Pile."
+      ]
+    },
+    "Show-Off": {
+      "color": "yellow",
+      "dares": [
+        "Act like a dog until your next turn.",
+        "Do a runway model walk across the room.",
+        "Pretend you are underwater until your next turn.",
+        "Impersonate your favorite singer.",
+        "Dance like a robot until your next turn.",
+        "Talk like a princess until your next turn.",
+        "Speak only in grunts until your next turn.",
+        "Talk to the player on your left like they're your celebrity crush.",
+        "Talk like a mouse until your next turn.",
+        "Act like a total Diva until your next turn.",
+        "No laughing until your next turn.",
+        "Talk like a super villain until your next turn.",
+        "Pretend all your clothes itch until your next turn.",
+        "Talk like a pirate until your next turn.",
+        "Pretend to put on your make-up using an UNO card.",
+        "Do an impersonation of your favorite cartoon character."
+      ]
+    },
+    "House Rules": {
+      "color": "green",
+      "dares": [
+        "Yodel like a mountain goat before drawing your next card.",
+        "Do the Macarena dance until your next turn.",
+        "Speak only in questions until your next turn.",
+        "Act like a dog until your next turn.",
+        "Balance a pencil on your upper lip until your next turn.",
+        "Impersonate a T-Rex (tiny arms!) until your next turn.",
+        "Beatbox 'Boots and Cats until the next player completes their turn.",
+        "Sing Baby Shark until your next turn.",
+        "Pretend you're riding an invisible bull until your next turn.",
+        "Act and speak like Jim Carrey until your next turn.",
+        "Hopscotch for 10 seconds before your turn.",
+        "Make animal noises for every card anyone plays.",
+        "Recite the ABCs backwards until your next turn.",
+        "Do the worm or crabwalk on the floor once.",
+        "Talk like a caveman (Unga bunga!) until your next turn.",
+        "Strike a superhero pose and declare your powers before playing."
+      ]
+    }
+  }
+}
