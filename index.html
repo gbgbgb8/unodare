@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNO Dare! 🃏💥</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Setup Screen -->
+    <div id="setup-screen" class="screen active">
+        <div class="setup-container">
+            <div class="logo-area">
+                <h1 class="game-logo">UNO<span class="dare-text">Dare!</span></h1>
+                <p class="tagline">Play cards. Do dares. Cause chaos. 🔥</p>
+            </div>
+            
+            <div class="setup-section">
+                <h2>👥 Players</h2>
+                <div class="player-count-selector">
+                    <button class="count-btn" data-change="-1">−</button>
+                    <span id="player-count">2</span>
+                    <button class="count-btn" data-change="1">+</button>
+                </div>
+                
+                <div id="player-names" class="player-names">
+                    <input type="text" class="player-name-input" placeholder="Player 1" data-player="0">
+                    <input type="text" class="player-name-input" placeholder="Player 2" data-player="1">
+                </div>
+            </div>
+            
+            <div class="setup-section">
+                <h2>🎭 Dare Category</h2>
+                <div class="dare-category-grid">
+                    <button class="dare-category-btn selected" data-category="Family">
+                        <span class="category-icon">👨‍👩‍👧‍👦</span>
+                        <span class="category-name">Family</span>
+                        <span class="category-desc">Mild & Silly</span>
+                    </button>
+                    <button class="dare-category-btn" data-category="Show-Off">
+                        <span class="category-icon">💃</span>
+                        <span class="category-name">Show-Off</span>
+                        <span class="category-desc">Performance</span>
+                    </button>
+                    <button class="dare-category-btn" data-category="Daredevil">
+                        <span class="category-icon">🏋️</span>
+                        <span class="category-name">Daredevil</span>
+                        <span class="category-desc">Physical</span>
+                    </button>
+                    <button class="dare-category-btn" data-category="House Rules">
+                        <span class="category-icon">🏠</span>
+                        <span class="category-name">House Rules</span>
+                        <span class="category-desc">Chaotic</span>
+                    </button>
+                </div>
+            </div>
+            
+            <button id="start-game-btn" class="big-button">
+                <span>🎴 Start Game!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <!-- Top Bar -->
+        <div class="game-header">
+            <div class="round-info">
+                <span class="round-label">Round</span>
+                <span id="round-number" class="round-number">1</span>
+            </div>
+            <div class="direction-indicator" id="direction-indicator">
+                <span class="direction-arrow">↻</span>
+            </div>
+            <button id="scoreboard-btn" class="header-btn">📊 Scores</button>
+            <button id="uno-call-btn" class="uno-btn">UNO!</button>
+        </div>
+
+        <!-- Opponents Area -->
+        <div id="opponents-area" class="opponents-area">
+            <!-- Dynamically populated -->
+        </div>
+
+        <!-- Center Play Area -->
+        <div class="play-area">
+            <div class="deck-container">
+                <div id="draw-pile" class="card-pile draw-pile">
+                    <div class="pile-count" id="draw-count">93</div>
+                </div>
+                <div id="discard-pile" class="card-pile discard-pile">
+                    <!-- Top card shown here -->
+                </div>
+            </div>
+            <div id="current-player-banner" class="current-player-banner">
+                <span id="current-player-name">Player 1</span>'s turn
+            </div>
+        </div>
+
+        <!-- Player Hand -->
+        <div class="hand-area">
+            <div class="hand-label">
+                <span id="hand-player-name">Your Hand</span>
+                <span id="hand-card-count" class="card-count-badge">7</span>
+            </div>
+            <div id="player-hand" class="player-hand">
+                <!-- Cards go here -->
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div id="action-buttons" class="action-buttons">
+            <button id="draw-card-btn" class="action-btn draw-btn">Draw Card</button>
+            <button id="pass-turn-btn" class="action-btn pass-btn" style="display:none;">Pass Turn</button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Color Picker Modal -->
+    <div id="color-modal" class="modal">
+        <div class="modal-content color-modal-content">
+            <h2>Choose a Color</h2>
+            <div class="color-picker">
+                <button class="color-btn" data-color="red" style="--btn-color: var(--uno-red)">
+                    <span class="color-symbol">●</span>
+                </button>
+                <button class="color-btn" data-color="yellow" style="--btn-color: var(--uno-yellow)">
+                    <span class="color-symbol">◆</span>
+                </button>
+                <button class="color-btn" data-color="green" style="--btn-color: var(--uno-green)">
+                    <span class="color-symbol">▲</span>
+                </button>
+                <button class="color-btn" data-color="blue" style="--btn-color: var(--uno-blue)">
+                    <span class="color-symbol">■</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dare Modal -->
+    <div id="dare-modal" class="modal">
+        <div class="modal-content dare-modal-content">
+            <div class="dare-header">
+                <span class="dare-icon">🎭</span>
+                <h2>DARE TIME!</h2>
+            </div>
+            <div class="dare-target">
+                <span id="dare-player-name">Player 2</span> must choose:
+            </div>
+            <div class="dare-text-box">
+                <span class="dare-number">#<span id="dare-number">1</span></span>
+                <p id="dare-text">Do something silly!</p>
+            </div>
+            <div class="dare-choices">
+                <button id="do-dare-btn" class="dare-choice-btn do-dare">
+                    ✅ Do the Dare!
+                </button>
+                <button id="skip-dare-btn" class="dare-choice-btn skip-dare">
+                    ❌ Draw 2 Cards
+                </button>
+            </div>
+            <div id="dare-result" class="dare-result" style="display:none;">
+                <button id="dare-complete-btn" class="dare-result-btn complete">✅ Completed!</button>
+                <button id="dare-failed-btn" class="dare-result-btn failed">❌ Failed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scoreboard Modal -->
+    <div id="scoreboard-modal" class="modal">
+        <div class="modal-content scoreboard-modal-content">
+            <h2>📊 Scoreboard</h2>
+            <div id="scoreboard-list" class="scoreboard-list">
+                <!-- Populated dynamically -->
+            </div>
+            <div class="target-score">First to <span>500</span> points wins!</div>
+            <button id="close-scoreboard-btn" class="close-modal-btn">Close</button>
+        </div>
+    </div>
+
+    <!-- Round End Modal -->
+    <div id="round-end-modal" class="modal">
+        <div class="modal-content round-end-content">
+            <div class="winner-celebration">🎉</div>
+            <h2 id="round-winner-text">Player 1 wins the round!</h2>
+            <div class="points-earned">
+                +<span id="points-earned">0</span> points
+            </div>
+            <div id="round-scores" class="round-scores">
+                <!-- Scores listed here -->
+            </div>
+            <button id="next-round-btn" class="big-button">Next Round</button>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="game-over-modal" class="modal">
+        <div class="modal-content game-over-content">
+            <div class="trophy">🏆</div>
+            <h2 id="game-winner-text">Player 1 WINS!</h2>
+            <div class="final-score">
+                <span id="final-score">500</span> points
+            </div>
+            <div id="final-standings" class="final-standings">
+                <!-- Final standings -->
+            </div>
+            <button id="new-game-btn" class="big-button">New Game</button>
+        </div>
+    </div>
+
+    <!-- UNO Penalty Modal -->
+    <div id="uno-penalty-modal" class="modal">
+        <div class="modal-content penalty-content">
+            <div class="penalty-icon">😱</div>
+            <h2>UNO PENALTY!</h2>
+            <p id="penalty-text">Player forgot to say UNO!</p>
+            <p class="penalty-amount">+2 Cards</p>
+            <button id="accept-penalty-btn" class="close-modal-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
