@@ -8,59 +8,116 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 </head>
 <body>
-    <!-- Setup Screen -->
-    <div id="setup-screen" class="screen active">
-        <div class="setup-container">
+    <!-- Landing Screen - Host or Join -->
+    <div id="landing-screen" class="screen active">
+        <div class="landing-container">
             <div class="logo-area">
                 <h1 class="game-logo">UNO<span class="dare-text">Dare!</span></h1>
                 <p class="tagline">Play cards. Do dares. Cause chaos. 🔥</p>
             </div>
             
-            <div class="setup-section">
-                <h2>👥 Players</h2>
-                <div class="player-count-selector">
-                    <button class="count-btn" data-change="-1">−</button>
-                    <span id="player-count">2</span>
-                    <button class="count-btn" data-change="1">+</button>
-                </div>
+            <div class="landing-options">
+                <button id="host-game-btn" class="landing-btn host-btn">
+                    <span class="btn-icon">👑</span>
+                    <span class="btn-label">Host Game</span>
+                    <span class="btn-desc">Create a room & invite friends</span>
+                </button>
                 
-                <div id="player-names" class="player-names">
-                    <input type="text" class="player-name-input" placeholder="Player 1" data-player="0">
-                    <input type="text" class="player-name-input" placeholder="Player 2" data-player="1">
+                <button id="join-game-btn" class="landing-btn join-btn">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-label">Join Game</span>
+                    <span class="btn-desc">Enter a room code to play</span>
+                </button>
+            </div>
+
+            <div id="join-section" class="join-section" style="display: none;">
+                <h3>Enter Room Code</h3>
+                <input type="text" id="room-code-input" class="room-code-input" placeholder="ABCD" maxlength="4" autocapitalize="characters">
+                <input type="text" id="player-name-input" class="player-name-input" placeholder="Your Name">
+                <button id="connect-btn" class="big-button">
+                    <span>🚀 Join Room</span>
+                </button>
+                <button id="back-btn" class="back-btn">← Back</button>
+            </div>
+
+            <div id="host-section" class="host-section" style="display: none;">
+                <h3>Your Name</h3>
+                <input type="text" id="host-name-input" class="player-name-input" placeholder="Game Czar Name">
+                <button id="create-room-btn" class="big-button">
+                    <span>🎲 Create Room</span>
+                </button>
+                <button id="host-back-btn" class="back-btn">← Back</button>
+            </div>
+        </div>
+        
+        <div id="connection-status" class="connection-status"></div>
+    </div>
+
+    <!-- Lobby Screen -->
+    <div id="lobby-screen" class="screen">
+        <div class="lobby-container">
+            <div class="lobby-header">
+                <h1>🎴 Game Lobby</h1>
+                <div class="room-code-display">
+                    <span class="room-label">Room Code:</span>
+                    <span id="room-code" class="room-code">XXXX</span>
+                    <button id="copy-code-btn" class="copy-btn" title="Copy room code">📋</button>
+                </div>
+                <div class="share-link">
+                    <button id="copy-link-btn" class="share-btn">🔗 Copy Invite Link</button>
                 </div>
             </div>
-            
-            <div class="setup-section">
-                <h2>🎭 Dare Category</h2>
-                <div class="dare-category-grid">
-                    <button class="dare-category-btn selected" data-category="Family">
-                        <span class="category-icon">👨‍👩‍👧‍👦</span>
-                        <span class="category-name">Family</span>
-                        <span class="category-desc">Mild & Silly</span>
+
+            <div class="lobby-content">
+                <div class="players-section">
+                    <h2>👥 Players <span id="player-count-display">(1/10)</span></h2>
+                    <div id="players-list" class="players-list">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <div id="host-controls" class="host-controls">
+                    <h2>🎭 Game Settings</h2>
+                    <div class="setting-group">
+                        <label>Dare Category</label>
+                        <div class="dare-category-grid">
+                            <button class="dare-category-btn selected" data-category="Family">
+                                <span class="category-icon">👨‍👩‍👧‍👦</span>
+                                <span class="category-name">Family</span>
+                            </button>
+                            <button class="dare-category-btn" data-category="Show-Off">
+                                <span class="category-icon">💃</span>
+                                <span class="category-name">Show-Off</span>
+                            </button>
+                            <button class="dare-category-btn" data-category="Daredevil">
+                                <span class="category-icon">🏋️</span>
+                                <span class="category-name">Daredevil</span>
+                            </button>
+                            <button class="dare-category-btn" data-category="House Rules">
+                                <span class="category-icon">🏠</span>
+                                <span class="category-name">House Rules</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button id="start-game-btn" class="big-button start-btn" disabled>
+                        <span>🎴 Start Game</span>
                     </button>
-                    <button class="dare-category-btn" data-category="Show-Off">
-                        <span class="category-icon">💃</span>
-                        <span class="category-name">Show-Off</span>
-                        <span class="category-desc">Performance</span>
-                    </button>
-                    <button class="dare-category-btn" data-category="Daredevil">
-                        <span class="category-icon">🏋️</span>
-                        <span class="category-name">Daredevil</span>
-                        <span class="category-desc">Physical</span>
-                    </button>
-                    <button class="dare-category-btn" data-category="House Rules">
-                        <span class="category-icon">🏠</span>
-                        <span class="category-name">House Rules</span>
-                        <span class="category-desc">Chaotic</span>
-                    </button>
+                    <p class="start-hint" id="start-hint">Need at least 2 players to start</p>
+                </div>
+
+                <div id="player-controls" class="player-controls" style="display: none;">
+                    <h2>⏳ Waiting for Host</h2>
+                    <p class="waiting-text">The Game Czar will start the game when everyone is ready.</p>
+                    <div class="selected-category">
+                        <span>Dare Category:</span>
+                        <span id="selected-category-display" class="category-badge">Family</span>
+                    </div>
                 </div>
             </div>
-            
-            <button id="start-game-btn" class="big-button">
-                <span>🎴 Start Game!</span>
-            </button>
         </div>
     </div>
 
@@ -75,13 +132,16 @@
             <div class="direction-indicator" id="direction-indicator">
                 <span class="direction-arrow">↻</span>
             </div>
-            <button id="scoreboard-btn" class="header-btn">📊 Scores</button>
+            <div class="current-turn-indicator">
+                <span id="whose-turn">Your Turn!</span>
+            </div>
+            <button id="scoreboard-btn" class="header-btn">📊</button>
             <button id="uno-call-btn" class="uno-btn">UNO!</button>
         </div>
 
         <!-- Opponents Area -->
         <div id="opponents-area" class="opponents-area">
-            <!-- Dynamically populated -->
+            <!-- Dynamically populated with other players -->
         </div>
 
         <!-- Center Play Area -->
@@ -94,15 +154,13 @@
                     <!-- Top card shown here -->
                 </div>
             </div>
-            <div id="current-player-banner" class="current-player-banner">
-                <span id="current-player-name">Player 1</span>'s turn
-            </div>
+            <div id="game-message" class="game-message"></div>
         </div>
 
         <!-- Player Hand -->
         <div class="hand-area">
             <div class="hand-label">
-                <span id="hand-player-name">Your Hand</span>
+                <span>Your Hand</span>
                 <span id="hand-card-count" class="card-count-badge">7</span>
             </div>
             <div id="player-hand" class="player-hand">
@@ -147,13 +205,13 @@
                 <h2>DARE TIME!</h2>
             </div>
             <div class="dare-target">
-                <span id="dare-player-name">Player 2</span> must choose:
+                <span id="dare-player-name">Player</span> must choose:
             </div>
             <div class="dare-text-box">
                 <span class="dare-number">#<span id="dare-number">1</span></span>
                 <p id="dare-text">Do something silly!</p>
             </div>
-            <div class="dare-choices">
+            <div id="dare-choices" class="dare-choices">
                 <button id="do-dare-btn" class="dare-choice-btn do-dare">
                     ✅ Do the Dare!
                 </button>
@@ -161,9 +219,18 @@
                     ❌ Draw 2 Cards
                 </button>
             </div>
+            <div id="dare-waiting" class="dare-waiting" style="display: none;">
+                <p>Waiting for <span id="dare-waiting-name">Player</span> to decide...</p>
+            </div>
             <div id="dare-result" class="dare-result" style="display:none;">
-                <button id="dare-complete-btn" class="dare-result-btn complete">✅ Completed!</button>
-                <button id="dare-failed-btn" class="dare-result-btn failed">❌ Failed</button>
+                <p class="dare-result-question">Did they complete the dare?</p>
+                <div class="dare-result-buttons">
+                    <button id="dare-complete-btn" class="dare-result-btn complete">✅ Yes!</button>
+                    <button id="dare-failed-btn" class="dare-result-btn failed">❌ Nope</button>
+                </div>
+            </div>
+            <div id="dare-judging" class="dare-judging" style="display: none;">
+                <p>The group is deciding...</p>
             </div>
         </div>
     </div>
@@ -184,14 +251,17 @@
     <div id="round-end-modal" class="modal">
         <div class="modal-content round-end-content">
             <div class="winner-celebration">🎉</div>
-            <h2 id="round-winner-text">Player 1 wins the round!</h2>
+            <h2 id="round-winner-text">Player wins the round!</h2>
             <div class="points-earned">
                 +<span id="points-earned">0</span> points
             </div>
             <div id="round-scores" class="round-scores">
                 <!-- Scores listed here -->
             </div>
-            <button id="next-round-btn" class="big-button">Next Round</button>
+            <div id="next-round-section">
+                <button id="next-round-btn" class="big-button" style="display:none;">Next Round</button>
+                <p id="waiting-next-round" class="waiting-text">Waiting for host to start next round...</p>
+            </div>
         </div>
     </div>
 
@@ -199,14 +269,23 @@
     <div id="game-over-modal" class="modal">
         <div class="modal-content game-over-content">
             <div class="trophy">🏆</div>
-            <h2 id="game-winner-text">Player 1 WINS!</h2>
+            <h2 id="game-winner-text">Player WINS!</h2>
             <div class="final-score">
                 <span id="final-score">500</span> points
             </div>
             <div id="final-standings" class="final-standings">
                 <!-- Final standings -->
             </div>
-            <button id="new-game-btn" class="big-button">New Game</button>
+            <button id="new-game-btn" class="big-button" style="display:none;">New Game</button>
+            <button id="back-to-lobby-btn" class="big-button">Back to Lobby</button>
+        </div>
+    </div>
+
+    <!-- UNO Called Modal -->
+    <div id="uno-called-modal" class="modal">
+        <div class="modal-content uno-called-content">
+            <div class="uno-called-icon">🎉</div>
+            <h2 id="uno-called-text">Player called UNO!</h2>
         </div>
     </div>
 
@@ -221,10 +300,19 @@
         </div>
     </div>
 
+    <!-- Disconnection Modal -->
+    <div id="disconnect-modal" class="modal">
+        <div class="modal-content disconnect-content">
+            <div class="disconnect-icon">😢</div>
+            <h2>Connection Lost</h2>
+            <p id="disconnect-text">You were disconnected from the game.</p>
+            <button id="reconnect-btn" class="big-button">Return to Home</button>
+        </div>
+    </div>
+
     <!-- Toast Notifications -->
     <div id="toast-container" class="toast-container"></div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
